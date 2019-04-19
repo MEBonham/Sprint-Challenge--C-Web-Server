@@ -75,9 +75,14 @@ int send_request(int fd, char *hostname, char *port, char *path)
   char request[max_request_size];
   int rv;
 
-  ///////////////////
-  // IMPLEMENT ME! //
-  ///////////////////
+  int request_size = snprintf(request, max_request_size, "GET /%s HTTP/1.1\nHost: %s:%s\nConnection: close", path, hostname, port);
+
+  rv = send(fd, request, request_size, 0);
+
+  if (rv < 0)
+  {
+    perror("send request");
+  }
 
   return 0;
 }
